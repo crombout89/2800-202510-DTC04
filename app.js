@@ -74,6 +74,11 @@ const registerRouter = require('./routes/register');
 const locationRoutes = require('./routes/location');
 const geolocationRoutes = require('./routes/geolocation');
 const loginRouter = require('./routes/login');
+<<<<<<< HEAD
+=======
+const messagesRoute = require('./routes/messages');
+const notificationsRoute = require('./routes/notifications');
+>>>>>>> e6f2d4d (Create basic notifications logic setup)
 const profileRouter = require('./routes/profile');
 const discoverRoutes = require('./routes/discover');
 
@@ -123,13 +128,23 @@ const validateRouter = (router, routeName) => {
 app.use('/', validateRouter(indexRouter, 'indexRouter'));
 app.use('/', validateRouter(registerRouter, 'registerRouter'));
 app.use('/', validateRouter(profileRouter, 'profileRouter'));
+<<<<<<< HEAD
+=======
+app.use('/', messagesRoute); 
+app.use('/api/translate', translateRoute);
+>>>>>>> e6f2d4d (Create basic notifications logic setup)
 app.use('/communities', validateRouter(communitiesRouter, 'communitiesRouter'));
 app.use('/create-event', createEventRoutes);
 app.use('/dashboard', dashboardRouter);
 app.use('/discover', validateRouter(discoverRoutes, 'discoverRoutes'));
 app.use('/api/geolocation', geolocationRoutes);
 app.use('/api/location', validateRouter(locationRoutes, 'locationRoutes'));
+<<<<<<< HEAD
 app.use('/login', validateRouter(loginRouter, 'loginRouter')); 
+=======
+app.use('/login', validateRouter(loginRouter, 'loginRouter'));
+app.use('/notifications', notificationsRoute);
+>>>>>>> e6f2d4d (Create basic notifications logic setup)
 app.use('/users', validateRouter(usersRouter, 'usersRouter'));
 
 // Logout Route
