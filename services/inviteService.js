@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 
 const sendInviteEmail = async (toEmail) => {
   const mailOptions = {
-    from: `"Your App" <${process.env.EMAIL_USER}>`,
+    from: `"Invitation" <${process.env.EMAIL_USER}>`,
     to: toEmail,
     subject: 'You’ve been invited!',
     html: `
