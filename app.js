@@ -44,10 +44,11 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000 
   }
 }));
-// temp logIn session 
+
+// Temporary session for testing
 app.use((req, res, next) => {
   if (!req.session.userId) {
-    req.session.userId = '664245d013fb80f9d8123456'; // use an actual _id from your MongoDB if available
+    req.session.userId = '664245d013fb80f9d8123456';
     req.session.user = {
       username: 'fereshteh',
       email: 'fereshteh@example.com',
@@ -58,25 +59,6 @@ app.use((req, res, next) => {
       bio: 'Testing profile page',
       photo: ''
     };
-  }
-  next();
-});
-
-
-
-
-// User Session Middleware
-app.use(async (req, res, next) => {
-  try {
-    if (req.session && req.session.userId) {
-      const user = await User.findById(req.session.userId).select('-password');
-      if (user) {
-        req.user = user;
-        res.locals.user = user;
-      }
-    }
-  } catch (error) {
-    console.error('Session user lookup error:', error);
   }
   next();
 });
@@ -96,6 +78,7 @@ const geolocationRoutes = require('./routes/geolocation');
 const loginRouter = require('./routes/login');
 const profileRouter = require('./routes/profile');
 const discoverRoutes = require('./routes/discover');
+const inviteRouter = require('./routes/inviteRoute'); // <-- ADDED invite router
 
 // Body parsers
 app.use(express.urlencoded({ extended: true }));
@@ -110,7 +93,6 @@ app.use(express.static(path.join(__dirname, 'public'), {
   setHeaders: (res, filePath) => {
     if (path.extname(filePath) === '.js') {
       res.setHeader('Content-Type', 'application/javascript');
-      // Allow module scripts
       res.setHeader('X-Content-Type-Options', 'nosniff');
     }
     if (path.extname(filePath) === '.mjs') {
@@ -143,6 +125,7 @@ const validateRouter = (router, routeName) => {
 app.use('/', validateRouter(indexRouter, 'indexRouter'));
 app.use('/', validateRouter(registerRouter, 'registerRouter'));
 app.use('/', validateRouter(profileRouter, 'profileRouter'));
+app.use('/', validateRouter(inviteRouter, 'inviteRouter')); // <-- ADDED
 app.use('/communities', validateRouter(communitiesRouter, 'communitiesRouter'));
 app.use('/create-event', createEventRoutes);
 app.use('/dashboard', dashboardRouter);
@@ -181,10 +164,8 @@ const shutdown = (signal) => {
   });
 };
 
-// Handle termination signals
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
-
 
 // Start server
 const PORT = config.port || 3000;
