@@ -1,19 +1,99 @@
-<!-- views/invite.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Invite a Friend</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 60px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    input[type="email"] {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #2d8659;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #246e47;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      color: #2d8659;
+      text-decoration: none;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>Invite a Friend</h1>
+  <div class="container">
+    <h1 class="page-title">Invite a Friend</h1>
 
-  <form action="/invite" method="POST">
-    <label for="email">Friend's Email:</label>
-    <input type="email" name="email" id="email" required placeholder="example@example.com">
-    <button type="submit">Send Invite</button>
-  </form>
+    <form action="/invite" method="POST">
+      <label for="email">Friend's Email:</label>
+      <input 
+        type="email" 
+        name="email" 
+        id="email" 
+        required 
+        placeholder="friend@example.com"
+      />
+      <button type="submit">Send Invite</button>
+    </form>
 
-  <p>This is a working test form.</p>
+    <div class="back-link">
+      <a href="/dashboard">← Back to Dashboard</a>
+    </div>
+  </div>
 </body>
 </html>
